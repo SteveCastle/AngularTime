@@ -1,4 +1,4 @@
-AngularTIme
+Angular Time Clock
 ===========
 
-Angular and Firebase Time Clock
+A Reactive and Simple to use Time Clock for Angular JS
