@@ -1,6 +1,9 @@
 <div class="page-header">
   <h1>Time Clock</h1>
 </div>
+<div class="col-lg-12">
+	<div class="alert {{currentUser.statusType}}">Hi {{currentUser.name}} you are currently {{currentUser.status}}</div>
+</div>
 <div class="col-lg-9">
 	<table class="table table-striped">
 			<thead>
@@ -17,7 +20,7 @@
 			<td>{{employee.title}}</td>
 			<td>{{employee.status}}</td>
 		</tr>
-		<tr>
+		<tr ng-show="currentUser.isManager">
 			<td><input ng-model="newName" class="form-control"/></td>
 			<td><select ng-model="newDepartment" class="form-control"/>
 				 <option ng-repeat="department in departments" value="{{department.name}}" >{{department.name}}</option>
@@ -25,15 +28,15 @@
 			<td><select ng-model="newTitle" class="form-control"/>
 				 <option ng-repeat="title in titles" value="{{title.name}}" >{{title.name}}</option>
 			</select></td>
-			<td><button class="btn btn-success" ng-click="addEmployee(newName,newDepartment,newTitle)">New Employee</button></td>
+			<td ><button class="btn btn-success" ng-click="addEmployee(newName,newDepartment,newTitle)">New Employee</button></td>
 		</tr>
 	</table>
 </div>
 <div class="col-lg-3">
 	<div class="well">
-		<button class="btn btn-success btn-block" ng-click="clockIn()">Clock In</button>
-		<button class="btn btn-warning btn-block" ng-click="clockOut()">Break</button>
-		<button class="btn btn-info btn-block" ng-click="clockOut()">Lunch</button>
-		<button class="btn btn-danger btn-block" ng-click="clockOut()">Leaving for Day</button>
+		<button class="btn btn-success btn-block" ng-click="clockIn('Clocked In')">Clock In</button>
+		<button class="btn btn-warning btn-block" ng-click="clockOut('On Break')">Break</button>
+		<button class="btn btn-info btn-block" ng-click="clockOut('At Lunch')">Lunch</button>
+		<button class="btn btn-danger btn-block" ng-click="clockOut('Clocked Out')">Leaving for Day</button>
 	</div>
 </div>
