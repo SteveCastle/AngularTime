@@ -2,7 +2,7 @@
   <h1>Time Clock</h1>
 </div>
 <div class="col-lg-12">
-	<div class="alert {{currentUser.statusType}}">Hi {{currentUser.name}} you are currently {{currentUser.status}}</div>
+	<div class="alert">Hi {{currentUser.name}} you are currently {{currentUser.status}}</div>
 </div>
 <div class="col-lg-9">
 	<table class="table table-striped">
@@ -15,14 +15,15 @@
 					<th>Time</th>
 				</tr>
 			</thead>
-			<tr ng-repeat="employee in employees">
+			<tr ng-repeat="(key, employee) in employees" ng-click=selectEmployee(key)>
 			<td>{{employee.name}}</td>
 			<td>{{employee.department}}</td>
 			<td>{{employee.title}}</td>
 			<td>{{employee.status}}</td>
 			<td>{{employee.lastTime| date:'MM/dd/yyyy @ h:mma' }}</td>
 		</tr>
-		<tr ng-show="currentUser.isManager">
+	</table>
+	<table class='table table-striped'>		<tr ng-show="currentUser.isManager">
 			<form name="form" class="css-form" novalidate>
 			<td><input ng-model="form.newName" class="form-control" required/></td>
 			<td><select ng-model="form.newDepartment" class="form-control" required/>
@@ -31,10 +32,10 @@
 			<td><select ng-model="form.newTitle" class="form-control"/>
 				 <option ng-repeat="title in titles" value="{{title.name}}" >{{title.name}}</option>
 			</select></td>
-			<td ><button class="btn btn-success" ng-click="addEmployee(form.newName,form.newDepartment,form.newTitle)">New Employee</button></td>
+			<td><input type="checkbox" ng-model="form.isManager"></td>
+			<td ><button class="btn btn-success" ng-click="addEmployee(form)">New Employee</button></td>
 		</form>
-		</tr>
-	</table>
+		</tr></table>
 </div>
 <div class="col-lg-3">
 	<div class="well">
