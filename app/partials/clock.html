@@ -21,14 +21,16 @@
 			<td>{{employee.status}}</td>
 		</tr>
 		<tr ng-show="currentUser.isManager">
-			<td><input ng-model="newName" class="form-control"/></td>
-			<td><select ng-model="newDepartment" class="form-control"/>
-				 <option ng-repeat="department in departments" value="{{department.name}}" >{{department.name}}</option>
+			<form name="form" class="css-form" novalidate>
+			<td><input ng-model="form.newName" class="form-control" required/></td>
+			<td><select ng-model="form.newDepartment" class="form-control" required/>
+				 <option ng-repeat="department in departments" value="{{department.name}}"  required>{{department.name}}</option>
 			</select></td>
-			<td><select ng-model="newTitle" class="form-control"/>
+			<td><select ng-model="form.newTitle" class="form-control"/>
 				 <option ng-repeat="title in titles" value="{{title.name}}" >{{title.name}}</option>
 			</select></td>
-			<td ><button class="btn btn-success" ng-click="addEmployee(newName,newDepartment,newTitle)">New Employee</button></td>
+			<td ><button class="btn btn-success" ng-click="addEmployee(form.newName,form.newDepartment,form.newTitle)">New Employee</button></td>
+		</form>
 		</tr>
 	</table>
 </div>
