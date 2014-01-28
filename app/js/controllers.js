@@ -4,19 +4,22 @@
 
 angular.module('myApp.controllers', ['firebase']).
   controller('EmployeeList', ['$scope','$firebase', function($scope, $firebase) {
-  $scope.currentUser={'name': "Steve Castle", 'status': "Clocked In", 'isManager': true};
   var ref = new Firebase('https://angular-clock.firebaseio.com/employees');
   $scope.employees = $firebase(ref.limit(15));
   $scope.departments=[{"name":"Creative"},{"name":"Sales"}];
+  $scope.currentUser = $scope.employees.$child('-JELMvaMgxgDtAGdnvuy');
   $scope.titles=[{"name":"Manager"},{"name":"Sales Guy"}];
 
 $scope.clockIn = function(status){
-$scope.currentUser.status=status;
-$scope.currentUser.statusType="alert-success";
+	$scope.currentUser.status=status;
+    $scope.currentUser.$save();
+	$scope.currentUser.$child('clocks').$add({'type': status, 'time': Firebase.ServerValue.TIMESTAMP});
 };
 $scope.clockOut = function(status){
-$scope.currentUser.status=status;
-$scope.currentUser.statusType="alert-danger";
+    $scope.currentUser.status=status;
+    $scope.currentUser.$save();
+	$scope.currentUser.$child('clocks').$add({'type': status, 'time': Firebase.ServerValue.TIMESTAMP});
+
 };
 
 $scope.addEmployee = function(newName,newDepartment,newTitle){
@@ -26,8 +29,16 @@ $scope.employees.$add(newEmployee);
   }])
   .controller('TimeCards', ['$scope','$firebase',function($scope, $firebase) {
   var ref = new Firebase('https://angular-clock.firebaseio.com/employees');
-  $scope.employees = $firebase(ref.limit(15));$scope.departments=[{"name":"Creative"},{"name":"Sales"}];
+  $scope.employees = $firebase(ref.limit(15));
+  $scope.departments=[{"name":"Creative"},{"name":"Sales"}];
 $scope.titles=[{"name":"Manager"},{"name":"Sales Guy"}];
+
+$scope.removeClock = function(employee, clock){
+	var clockIn = $scope.employees.$child(employee).$child('clocks').$child(clock);
+	console.log(clockIn);
+	clockIn.$remove();
+};
+
   }])
    .controller('SetUp', ['$scope',function($scope) {
 $scope.departments=[{"name":"Creative"},{"name":"Sales"}];

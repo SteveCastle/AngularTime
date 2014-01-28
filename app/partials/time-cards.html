@@ -16,24 +16,17 @@
 </div>
 <div class="col-lg-8">
 	<h3>From {{startTime|date: "shortDate"}} to {{endTime|date: "shortDate"}}</h3>
-	<table class="table table-striped" ng-repeat="employee in employees| filter: selectedDepartment | filter:selectedEmployee">
+	<table class="table table-striped" ng-repeat="(empKey,employee) in employees| filter: selectedDepartment | filter:selectedEmployee">
 		<tr >
 			<thead>
-				<tr>
+				<tr >
 					<th>{{employee.name}} {{employee.department}}</th>
 				</tr>
 			</thead>
-			<tr>
-				<td>Clock In</td>
-				<td>3:30</td>
-			</tr>
-			<tr>
-				<td>Clock Out</td>
-				<td>3:30</td>
-			</tr>
-			<tr>
-				<td>Clock In</td>
-				<td>3:30</td>
+			<tr ng-repeat="(key,val) in employee.clocks">
+				<td>{{val.type}}</td>
+				<td>{{val.time| date:'MM/dd/yyyy @ h:mma' }}</td>
+				<td><a ng-click="removeClock(empKey, key)"><span class="glyphicon glyphicon-remove"></span></a></td>
 			</tr>
 	</table>
 </div>

@@ -12,6 +12,7 @@
 					<th>Department</th>
 					<th>Job Title</th>
 					<th>Status</th>
+					<th>Time</th>
 				</tr>
 			</thead>
 			<tr ng-repeat="employee in employees">
@@ -19,6 +20,7 @@
 			<td>{{employee.department}}</td>
 			<td>{{employee.title}}</td>
 			<td>{{employee.status}}</td>
+			<td>{{employee.lastTime| date:'MM/dd/yyyy @ h:mma' }}</td>
 		</tr>
 		<tr ng-show="currentUser.isManager">
 			<form name="form" class="css-form" novalidate>
