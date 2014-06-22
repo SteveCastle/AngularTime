@@ -51,4 +51,4 @@ angular.module('myApp.controllers', ['firebase'])
 .controller('SetUp', ['$scope',function($scope) {
 	$scope.departments=[{"name":"Creative"},{"name":"Sales"}];
 	$scope.titles=[{"name":"Manager"},{"name":"Sales Guy"}];
-}]) ;
+}]);
